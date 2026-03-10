@@ -1,3 +1,16 @@
+"""
+Modelagem do problema de otimização de alocação de ambulâncias
+utilizando Algoritmo Genético.
+
+definição do problema:
+- dados
+- parâmetros
+- restrições
+- estrutura do indivíduo
+
+"""
+
+
 NUM_POSTOS = 8
 NUM_TURNOS = 3
 FROTA_TOTAL = 15
