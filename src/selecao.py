@@ -24,7 +24,7 @@ def selecionar_por_pais(populacao, k = 3):
 
 
 if __name__ == "__main__":
-    from gerador import gerar_populacao
+    from src.gerador import gerar_populacao
 
     populacao = gerar_populacao(10)
 
