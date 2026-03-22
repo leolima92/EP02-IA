@@ -15,14 +15,16 @@ from problema import (
     GAMMA_DEFICIT,
     BAIRROS_CRITICOS_R7,
     POSTOS_CRITICOS_R7,
-    POPULACAO_TOTAL
+    POPULACAO_TOTAL,
+    INDICE_POSTO,
+    INDICE_TURNO
 )
 
 
 
 def ambulancias_posto(individuo, posto, turno):
-    i_posto = POSTOS.index(posto)
-    i_turno = TURNOS.index(turno)
+    i_posto = INDICE_POSTO[posto]
+    i_turno = INDICE_TURNO[turno]
     return individuo[i_posto][i_turno]
 
 
