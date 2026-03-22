@@ -1,8 +1,7 @@
 import random
-from fitness import calcular_fitness
 
 
-def selecionar_por_torneio(populacao, k =3):
+def selecionar_por_torneio(populacao, k=3):
     if not populacao:
         raise ValueError("A população não pode ser vazia.")
     
@@ -13,7 +12,7 @@ def selecionar_por_torneio(populacao, k =3):
         k = len(populacao)
 
     candidatos = random.sample(populacao, k)
-    melhor = max(candidatos, key=lambda ind: calcular_fitness(ind)["fitness"])
+    melhor = max(candidatos, key=lambda ind: ind["fitness"])
     
     return melhor
 
@@ -24,18 +23,18 @@ def selecionar_por_pais(populacao, k = 3):
 
 
 if __name__ == "__main__":
-    from src.gerador import gerar_populacao
+    from gerador import gerar_populacao
 
     populacao = gerar_populacao(10)
 
     pai1, pai2 = selecionar_por_pais(populacao, k=3)
 
-    print("Pai 1:")
-    for linha in pai1:
+    print(f"Pai 1: (fitness: {pai1['fitness']})")
+    for linha in pai1['cromossomo']:
         print(linha)
 
-    print("\nPai 2:")
-    for linha in pai2:
+    print(f"\nPai 2: (fitness: {pai2['fitness']})")
+    for linha in pai2['cromossomo']:
         print(linha)
         
         

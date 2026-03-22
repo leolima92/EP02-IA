@@ -5,6 +5,11 @@ from problema import (
     MIN_AMB_POSTO,
     MAX_AMB_POSTO,
 )
+
+from fitness import (
+    calcular_fitness,
+)
+
 import random
 
 def gerar_individuo():
@@ -28,10 +33,19 @@ def gerar_individuo():
     return individuo
 
 def gerar_populacao(tamanho_populacao):
+   
     populacao = []
 
     for _ in range(tamanho_populacao):
-        individuo = gerar_individuo()
+        matriz = gerar_individuo()
+        dados_fitness = calcular_fitness(matriz)
+
+        individuo = {
+            'cromossomo': matriz,
+            'fitness': dados_fitness['fitness'],
+            'detalhes': dados_fitness
+        }
+
         populacao.append(individuo)
 
     return populacao
