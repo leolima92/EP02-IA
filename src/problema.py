@@ -10,11 +10,6 @@ definição do problema:
 
 """
 
-
-"""
-Configurações e Dados do Problema de Alocação de Ambulâncias
-"""
-
 # --- PARÂMETROS OPERACIONAIS ---
 NUM_POSTOS = 8
 NUM_TURNOS = 3
@@ -75,7 +70,9 @@ PENALIDADES = {
     "R6_RODIZIO": 2000, "R7_NOTURNO_CRITICO": 5000
 }
 GAMMA_DEFICIT = 150  # Fator de penalidade para o déficit
+BAIRROS_CRITICOS_R7 = ["B9", "B10"] 
 POSTOS_CRITICOS_R7 = ["P4", "P5", "P7"]
+
 
 if __name__ == "__main__":
     print(f"Problema carregado. População total: {POPULACAO_TOTAL} habitantes.")
