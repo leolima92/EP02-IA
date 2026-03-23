@@ -181,14 +181,14 @@ def calcular_fitness(individuo):
     fitness = cobertura_ponderada - (deficit_total * GAMMA_DEFICIT) - penalidade_total
 
     return {
-        "fitness": fitness,  # CHAVE ESSENCIAL
+        "fitness": fitness,  
         "cobertura_ponderada": cobertura_ponderada,
         "cobertura_por_turno": cobertura_por_turno,
         "deficit_total": deficit_total,
         "deficit_detalhado": deficit_detalhado,
         "violacoes": violacoes,
         "penalidade_total": penalidade_total,
-        "total_violacoes": sum(violacoes.values()) # Facilitador para o log
+        "total_violacoes": sum(violacoes.values()) 
     }
 
 

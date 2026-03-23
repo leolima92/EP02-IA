@@ -35,10 +35,11 @@ def executar():
             
             for filho in [filho1, filho2]:
                 if len(nova_populacao) < TAMANHO_POPULACAO:
-                    dados = calcular_fitness(filho['cromossomo'])
-                    filho
-                    filho['detalhes'] = dados
-                nova_populacao.append(filho)
+                    if 'fitness' not in filho: 
+                        dados = calcular_fitness(filho['cromossomo'])
+                        filho['fitness'] = dados['fitness']
+                        filho['detalhes'] = dados
+                    nova_populacao.append(filho)
         populacao = nova_populacao
         
     populacao.sort(key=lambda ind: ind['fitness'], reverse=True)
