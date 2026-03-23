@@ -35,3 +35,22 @@ def gerar_populacao(tamanho_populacao):
         populacao.append(individuo)
 
     return populacao
+
+
+if __name__ == "__main__":
+    individuo = gerar_individuo()
+    print("Indivíduo gerado:")
+    for i, posto in enumerate(POSTOS):
+        print(f"{posto}: {individuo[i]}")
+
+    print("\nPopulação de teste:")
+    populacao = gerar_populacao(3)
+    for idx, ind in enumerate(populacao, start=1):
+        print(f"\nIndivíduo {idx}:")
+        for i, posto in enumerate(POSTOS):
+            print(f"{posto}: {ind[i]}")
+            
+            
+            
+            
+            

@@ -39,12 +39,3 @@ if __name__ == "__main__":
         print(linha)
         
         
-
-
-"""
-Seleção por torneio para o Algoritmo Genético.
-
-- Sorteia k indivíduos da população
-- Escolhe o de maior fitness
-- Permite selecionar dois pais para reprodução
-"""
