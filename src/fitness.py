@@ -173,7 +173,6 @@ def calcular_penalidade_total(violacoes):
 
 
 def calcular_fitness(individuo):
-    
     cobertura_ponderada, cobertura_por_turno = calcular_cobertura_populacional(individuo)
     deficit_total, deficit_detalhado = calcular_deficit(individuo)
     violacoes = verificar_restricoes(individuo)
@@ -182,15 +181,15 @@ def calcular_fitness(individuo):
     fitness = cobertura_ponderada - (deficit_total * GAMMA_DEFICIT) - penalidade_total
 
     return {
-        "fitness": fitness,
+        "fitness": fitness,  
         "cobertura_ponderada": cobertura_ponderada,
         "cobertura_por_turno": cobertura_por_turno,
         "deficit_total": deficit_total,
         "deficit_detalhado": deficit_detalhado,
         "violacoes": violacoes,
-        "penalidade_total": penalidade_total
+        "penalidade_total": penalidade_total,
+        "total_violacoes": sum(violacoes.values()) 
     }
-
 
 
 if __name__ == "__main__":
