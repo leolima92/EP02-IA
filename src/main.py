@@ -1,45 +1,49 @@
 import copy
-from problema import TAMANHO_POPULACAO, GERACOES, TAXA_CROSSOVER, TAXA_MUTACAO
+import argparse
 from gerador import gerar_populacao
 from selecao import selecionar_por_pais
 from crossover import crossover_uniforme
 from mutacao import mutacao
 from fitness import calcular_fitness
 
-def executar():
-    populacao = gerar_populacao(TAMANHO_POPULACAO)
+def executar(pop_size, geracoes, crossover_rate, mutacao_rate):
+    # Inicializa a população com o tamanho definido via argumento
+    populacao = gerar_populacao(pop_size)
     
     print("Iniciando otimização de alocação de ambulâncias...")
-    print(f"População: {TAMANHO_POPULACAO} | Gerações: {GERACOES}\n")
+    print(f"População: {pop_size} | Gerações: {geracoes}")
+    print(f"Taxa Crossover: {crossover_rate} | Taxa Mutação: {mutacao_rate}\n")
     
-    for geracao in range(GERACOES):
+    for geracao in range(geracoes):
         populacao.sort(key=lambda ind: ind['fitness'], reverse=True)
         
         melhor_geracao = populacao[0]
         
-        if geracao % 20 ==0:
+        if geracao % 20 == 0:
             print(f"Geração {geracao:3d} | Melhor Fitness: {melhor_geracao['fitness']:10.2f} | Violações: {melhor_geracao['detalhes']['violacoes']}")
         
         nova_populacao = []
         
+        # Elitismo: mantém os 2 melhores
         nova_populacao.extend(copy.deepcopy(populacao[:2]))
         
-        while len(nova_populacao) < TAMANHO_POPULACAO:
-            #Seleção por torneio
+        while len(nova_populacao) < pop_size:
+            # Seleção
             pai1, pai2 = selecionar_por_pais(populacao)
-            #Crossover
-            filho1, filho2 = crossover_uniforme(pai1, pai2, TAXA_CROSSOVER)
-            #Mutação
-            filho1 = mutacao(filho1, TAXA_MUTACAO)
-            filho2 = mutacao(filho2, TAXA_MUTACAO)
+            # Crossover
+            filho1, filho2 = crossover_uniforme(pai1, pai2, crossover_rate)
+            # Mutação
+            filho1 = mutacao(filho1, mutacao_rate)
+            filho2 = mutacao(filho2, mutacao_rate)
             
             for filho in [filho1, filho2]:
-                if len(nova_populacao) < TAMANHO_POPULACAO:
+                if len(nova_populacao) < pop_size:
                     if 'fitness' not in filho: 
                         dados = calcular_fitness(filho['cromossomo'])
                         filho['fitness'] = dados['fitness']
                         filho['detalhes'] = dados
                     nova_populacao.append(filho)
+        
         populacao = nova_populacao
         
     populacao.sort(key=lambda ind: ind['fitness'], reverse=True)
@@ -61,4 +65,22 @@ def executar():
         print(f"Cobertura {turno:5s}: {info['percentual']:.1f}% da população")
 
 if __name__ == "__main__":
-    executar()
+    parser = argparse.ArgumentParser(description="Algoritmo Genético para Alocação de Ambulâncias")
+
+    # Configuração dos argumentos
+    parser.add_argument("-p", "--populacao", type=int, default=100, help="Tamanho da população (padrão: 100)")
+    parser.add_argument("-g", "--geracoes", type=int, default=100, help="Número de gerações (padrão: 100)")
+    parser.add_argument("-c", "--crossover", type=float, default=0.8, help="Taxa de crossover entre 0 e 1 (padrão: 0.8)")
+    parser.add_argument("-m", "--mutacao", type=float, default=0.1, help="Taxa de mutação entre 0 e 1 (padrão: 0.1)")
+
+    args = parser.parse_args()
+
+    # Chama a função principal com os valores definidos no terminal
+    executar(
+        pop_size=args.populacao, 
+        geracoes=args.geracoes, 
+        crossover_rate=args.crossover, 
+        mutacao_rate=args.mutacao
+    )
+    
+    
