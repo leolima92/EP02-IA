@@ -2,7 +2,6 @@ import random
 import copy
 
 # essa função faz o crossover uniforme trocando as colunas entre os pais 
-# **futuramente no main tem que fazer a checagem se o individuo tem fitness, se não tiver ele é novo** <- importante
 # se tiver fitness ele não sofreu crossover
 #tem 30% de chance de não haver crossover
 #tem 25% de chance de crossover com os filhos iguais aos pais

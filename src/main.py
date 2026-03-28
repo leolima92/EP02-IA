@@ -24,15 +24,15 @@ def executar(pop_size, geracoes, crossover_rate, mutacao_rate):
         
         nova_populacao = []
         
-        # Elitismo: mantém os 2 melhores
+        # elitismo: mantém os 2 melhores
         nova_populacao.extend(copy.deepcopy(populacao[:2]))
         
         while len(nova_populacao) < pop_size:
-            # Seleção
+            # seleção
             pai1, pai2 = selecionar_por_pais(populacao)
-            # Crossover
+            # crossover
             filho1, filho2 = crossover_uniforme(pai1, pai2, crossover_rate)
-            # Mutação
+            # mutação
             filho1 = mutacao(filho1, mutacao_rate)
             filho2 = mutacao(filho2, mutacao_rate)
             
@@ -75,7 +75,7 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    # Chama a função principal com os valores definidos no terminal
+    # chama a função principal com os valores definidos no terminal
     executar(
         pop_size=args.populacao, 
         geracoes=args.geracoes, 

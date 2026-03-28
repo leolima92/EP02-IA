@@ -29,13 +29,11 @@ def ambulancias_posto(individuo, posto, turno):
 
 
 def capacidade_posto(individuo, posto, turno):
-
     qtd_ambulancias = ambulancias_posto(individuo, posto, turno)
     return qtd_ambulancias * CAPACIDADE_ATENDIMENTO_POR_AMB
 
 
 def demanda_posto(posto, turno):
-
     total = 0
     for bairro in POSTOS_ATENDEM_BAIRROS[posto]:
         total += DEMANDA_BAIRROS[bairro][turno]
@@ -43,7 +41,6 @@ def demanda_posto(posto, turno):
 
 
 def bairro_coberto(individuo, bairro, turno):
-
     for posto in BAIRROS_COBERTOS_POR_POSTOS[bairro]:
         if ambulancias_posto(individuo, posto, turno) > 0:
             return True
@@ -51,7 +48,6 @@ def bairro_coberto(individuo, bairro, turno):
 
 
 def calcular_cobertura_populacional(individuo):
-
     cobertura_ponderada_total = 0
     cobertura_turno = {}
 
@@ -75,7 +71,6 @@ def calcular_cobertura_populacional(individuo):
 
 
 def calcular_deficit(individuo):
-
     deficit_total = 0
     deficit_detalhado = {}
 
@@ -95,7 +90,6 @@ def calcular_deficit(individuo):
 
 
 def verificar_restricoes(individuo):
-
     violacoes = {
         "R1_FROTA": 0,
         "R2_MINIMO": 0,
@@ -168,8 +162,6 @@ def calcular_penalidade_total(violacoes):
         penalidade_total += PENALIDADES[restricao] * qtd_violacoes
 
     return penalidade_total
-
-
 
 
 def calcular_fitness(individuo):
