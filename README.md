@@ -1,170 +1,63 @@
-O objetivo é encontrar uma alocação eficiente de ambulâncias entre postos de atendimento ao longo de três turnos do dia, utilizando um **Algoritmo Genético (AG)**.
 
-A solução busca **maximizar a cobertura populacional** e **minimizar o déficit de atendimento**, respeitando diversas restrições operacionais.
+# Otimização de Alocação de Ambulâncias - Algoritmo Genético (EP02-IA)
 
----
+Este projeto implementa um **Algoritmo Genético (AG)** para resolver o problema de otimização de alocação de uma frota de 15 ambulâncias em 8 postos de atendimento, visando cobrir 12 bairros e atender a demanda de 3 turnos diários.
 
-# Descrição do Problema
+O objetivo é encontrar uma alocação eficiente que **maximize a cobertura populacional** e **minimize o déficit de atendimento**, respeitando rigorosamente as restrições operacionais.
 
-A cidade possui:
 
-- **12 bairros**
-- **8 postos de atendimento**
-- **15 ambulâncias disponíveis**
 
-O dia é dividido em **3 turnos**:
+## Como Executar
 
-| Turno | Horário |
-|------|------|
-| Manhã | 06h – 14h |
-| Tarde | 14h – 22h |
-| Noite | 22h – 06h |
+O sistema foi desenvolvido em **Python**. Certifique-se de estar na pasta raiz do projeto (`EP02-IA`) ao executar os comandos.
 
-O objetivo é decidir **quantas ambulâncias devem ficar em cada posto em cada turno**.
-
-Cada ambulância consegue atender **até 16 ocorrências por turno**.
-
----
-
-# Representação da Solução
-
-Cada solução (indivíduo) é representada por uma **matriz 8 × 3**:
-
-- linhas → postos
-- colunas → turnos
-
-Exemplo:
-
+1. **Execução Padrão:**
+```bash
+   python src/main.py --populacao 100 --geracoes 100 --mutacao 0.10 --crossover 0.80
 ```
 
-Posto | Manhã | Tarde | Noite
-P1    |   2   |   2   |   1
-P2    |   2   |   2   |   1
-P3    |   2   |   3   |   2
-P4    |   2   |   2   |   2
-P5    |   2   |   2   |   2
-P6    |   1   |   1   |   1
-P7    |   2   |   2   |   3
-P8    |   2   |   1   |   3
-
-```
-
-Cada coluna deve somar **15 ambulâncias**, que é o total disponível.
-
----
-
-# Restrições do Problema
-
-O algoritmo deve respeitar as seguintes regras:
-
-**R1 – Frota total fixa**  
-A soma de ambulâncias por turno deve ser igual a 15.
-
-**R2 – Mínimo por posto**  
-Cada posto deve ter pelo menos 1 ambulância.
-
-**R3 – Máximo por posto**  
-Cada posto pode ter no máximo 4 ambulâncias.
-
-**R4 – Cobertura mínima**  
-Todos os bairros devem estar cobertos por pelo menos um posto com ambulância.
-
-**R5 – Alta demanda**  
-Postos que atendem mais de 10 ocorrências por turno devem ter pelo menos 2 ambulâncias.
-
-**R6 – Rodízio de equipes**  
-Um posto não pode ter a mesma quantidade de ambulâncias nos três turnos.
-
-**R7 – Reforço noturno**  
-Os bairros críticos (B9 e B10) precisam de reforço noturno nos postos P4, P5 e P7.
-
----
-
-# Função de Fitness
-
-A qualidade de cada solução é calculada considerando:
-
-1. **Cobertura populacional ponderada**
-
-Bairros cobertos geram pontos proporcionais à população e ao peso do turno.
-
-Pesos dos turnos:
-
-| Turno | Peso |
-|------|------|
-| Manhã | 1.0 |
-| Tarde | 1.2 |
-| Noite | 1.5 |
-
----
-
-2. **Déficit de atendimento**
-
-Caso a demanda seja maior que a capacidade do posto:
-
-```
-
-deficit = max(0, demanda - capacidade)
-
-```
-
-Cada ambulância atende até **16 ocorrências por turno**.
-
----
-
-3. **Penalidades por violação de restrições**
-
-Restrições críticas recebem penalidades maiores.
-
-A função final é:
-
-```
-
-fitness = cobertura
-
-* (deficit × gamma)
-* penalidades
-
-```
-
----
-
-# Estrutura do Projeto
-
-```
-
-EP02-IA/
-│
-├── problema.py
-├── fitness.py
-└── README.md
-
-```
-
-### problema.py
-
-Contém a definição completa do problema:
-
-- postos
-- bairros
-- demanda
-- cobertura
-- parâmetros
-- penalidades
-
----
-
-### fitness.py
-
-Implementa as funções de avaliação de uma solução:
-
-- cálculo da cobertura populacional
-- cálculo do déficit de atendimento
-- verificação das restrições
-- cálculo das penalidades
-- cálculo do fitness final
-
----
+2.  **Parâmetros Customizados via CLI:**
+    
+    -   `--populacao`: Tamanho da população (padrão: 100)
+        
+    -   `--geracoes`: Número de gerações (padrão: 100)
+        
+    -   `--mutacao`: Taxa de mutação [0.0 - 1.0] (padrão: 0.1)
+        
+    -   `--crossover`: Taxa de crossover [0.0 - 1.0] (padrão: 0.8)
+ 
 
 
+## Descrição do Problema
 
+A cidade possui **12 bairros** (295.000 hab.), **8 postos** e **15 ambulâncias**. O dia é dividido em:
+
+-   **Manhã:** 06h – 14h (Peso 1.0)
+    
+-   **Tarde:** 14h – 22h (Peso 1.2)
+    
+-   **Noite:** 22h – 06h (Peso 1.5)
+    
+
+### Restrições Implementadas (R1 a R7)
+
+-   **R1:** Frota total fixa de 15 ambulâncias por turno.
+    
+-   **R2/R3:** Mínimo de 1 e máximo de 4 ambulâncias por posto.
+    
+-   **R4:** Cobertura obrigatória de todos os bairros.
+    
+-   **R5:** Alocação proporcional em postos com demanda > 10 ocorrências.
+    
+-   **R6:** Obrigatoriedade de rodízio/variação de frota entre turnos.
+    
+-   **R7:** Reforço noturno obrigatório para os bairros críticos (B9 e B10).
+    
+
+##  Função de Fitness
+
+A qualidade de cada indivíduo é avaliada pela fórmula:
+
+$$Fitness = CP - (DT \cdot  \gamma) - \sum P_i$$
+
+Onde cada ambulância possui capacidade de atender até **16 ocorrências por turno**. As penalidades são aplicadas conforme a gravidade da restrição violada, garantindo que a evolução priorize soluções viáveis.
