@@ -19,9 +19,9 @@ def executar(pop_size, geracoes, crossover_rate, mutacao_rate):
         
         melhor_geracao = populacao[0]
         
-        if geracao % 20 == 0:
-            print(f"Geração {geracao:3d} | Melhor Fitness: {melhor_geracao['fitness']:10.2f} | Violações: {melhor_geracao['detalhes']['violacoes']}")
-        
+        fitnesses = [ind["fitness"] for ind in populacao]
+        print(f"Geração {geracao:3d} | Mínimo: {min(fitnesses):.2f} | Média: {sum(fitnesses)/len(fitnesses):.2f} | Máximo: {melhor_geracao['fitness']:.2f} | Violações: {melhor_geracao['detalhes']['violacoes']}\n")
+
         nova_populacao = []
         
         # elitismo: mantém os 2 melhores
