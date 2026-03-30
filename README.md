@@ -1,4 +1,9 @@
-O objetivo é encontrar uma alocação eficiente de ambulâncias entre postos de atendimento ao longo de três turnos do dia, utilizando um **Algoritmo Genético (AG)**.
+
+# Otimização de Alocação de Ambulâncias - Algoritmo Genético (EP02-IA)
+
+Este projeto implementa um **Algoritmo Genético (AG)** para resolver o problema de otimização de alocação de uma frota de 15 ambulâncias em 8 postos de atendimento, visando cobrir 12 bairros e atender a demanda de 3 turnos diários.
+
+O objetivo é encontrar uma alocação eficiente que **maximize a cobertura populacional** e **minimize o déficit de atendimento**, respeitando rigorosamente as restrições operacionais.
 
 A solução busca **maximizar a cobertura populacional** e **minimizar o déficit de atendimento**, respeitando diversas restrições operacionais.
 
